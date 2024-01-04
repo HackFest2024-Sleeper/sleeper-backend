@@ -1,20 +1,23 @@
+const admin = require('../../../config/firebase-config');
 const validator = require('validator');
+const { sequelize } = require('../../../models');
 const { BadRequestError } = require('../../errors');
+const User = require('../../../models').users;
 
-const createUser = async (email, password, fullName) => {
+const createUser = async (email, password, name) => {
   let firebaseUser, sequelizeUser;
   try {
     firebaseUser = await admin.auth().createUser({
       email: email,
       password: password,
-      displayName: fullName,
+      displayName: name,
     });
     const result = await sequelize.transaction(async (t) => {
       sequelizeUser = await User.create(
         {
           uid: firebaseUser.uid,
           email: firebaseUser.email,
-          fullName: firebaseUser.displayName,
+          name: firebaseUser.displayName,
         },
         {
           transaction: t,
@@ -32,11 +35,11 @@ const createUser = async (email, password, fullName) => {
 };
 
 const registerUser = async (req) => {
-  const { fullName, email, password } = req.body;
+  const { name, email, password } = req.body;
   let firebaseUser;
 
-  if (!fullName || !email || !password) {
-    throw new BadRequestError('fullName, email, and password is required');
+  if (!name || !email || !password) {
+    throw new BadRequestError('name, email, and password is required');
   }
 
   const isEmail = await validator.isEmail(email);
@@ -52,7 +55,7 @@ const registerUser = async (req) => {
         const [user, created] = await User.findOrCreate({
           where: {
             uid: firebaseUser.uid,
-            fullName: firebaseUser.displayName,
+            name: firebaseUser.displayName,
             email: firebaseUser.email,
           },
         });
@@ -83,7 +86,7 @@ const registerUser = async (req) => {
     throw new BadRequestError('Weak Password');
   }
 
-  const userCreated = await createUser(email, password, fullName);
+  const userCreated = await createUser(email, password, name);
 
   return userCreated;
 };

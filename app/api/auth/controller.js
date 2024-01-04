@@ -9,8 +9,8 @@ const register = async (req, res, next) => {
 
     res.status(StatusCodes.CREATED).json({
       status: StatusCodes.CREATED,
-      msg: result.msg || 'Verify Mail',
-      data: result.data || result,
+      msg: "CREATED",
+      data: result,
     });
   } catch (err) {
     next(err);
