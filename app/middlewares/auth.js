@@ -1,3 +1,5 @@
+const { UnauthorizedError } = require("../errors");
+
 const authenticateUser = async (req, res, next) => {
   try {
     let token;
@@ -7,14 +9,10 @@ const authenticateUser = async (req, res, next) => {
       token = authHeader.split(' ')[1];
     }
     if (!token) {
-      throw new Error('Authorization Invalid');
+      throw new UnauthorizedError('Authorization Invalid');
     }
 
     const payload = await admin.auth().verifyIdToken(token);
-
-    if (payload.email_verified === false) {
-      throw new Error('Email not Verified');
-    }
 
     req.user = payload;
     next();
