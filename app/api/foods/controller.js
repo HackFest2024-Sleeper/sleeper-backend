@@ -21,7 +21,7 @@ const getOne = async (req, res, next) => {
   try {
     const result = await getOneFood(req);
 
-    res.status(StatusCodes.CREATED).json({
+    res.status(StatusCodes.OK).json({
       status: StatusCodes.OK,
       msg: 'OK',
       data: result,

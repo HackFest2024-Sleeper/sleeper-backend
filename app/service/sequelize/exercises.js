@@ -1,3 +1,5 @@
+const { NotFoundError } = require('../../errors');
+
 const Exercise = require('../../../models').exercises;
 
 const getAllExercises = async (req) => {
@@ -32,4 +34,28 @@ const getAllExercises = async (req) => {
   };
 };
 
-module.exports = { getAllExercises };
+const getOneExercise = async (req) => {
+  const { id } = req.params;
+
+  const result = await Exercise.findOne({
+    where: { id },
+    attributes: [
+      'id',
+      'name',
+      'category',
+      'description',
+      'duration',
+      'repetitions',
+      'sets',
+      'video',
+    ],
+  });
+
+  if (!result) {
+    throw new NotFoundError(`Exercise with id ${id} not found`);
+  }
+
+  return result;
+};
+
+module.exports = { getAllExercises, getOneExercise };

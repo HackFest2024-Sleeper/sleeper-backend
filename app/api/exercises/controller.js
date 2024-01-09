@@ -1,5 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
-const { getAllExercises } = require('../../service/sequelize/exercises');
+const {
+  getAllExercises,
+  getOneExercise,
+} = require('../../service/sequelize/exercises');
 
 const getAll = async (req, res, next) => {
   try {
@@ -17,4 +20,18 @@ const getAll = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll };
+const getOne = async (req, res, next) => {
+  try {
+    const result = await getOneExercise(req);
+
+    res.status(StatusCodes.OK).json({
+      status: StatusCodes.OK,
+      msg: 'OK',
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { getAll, getOne };
