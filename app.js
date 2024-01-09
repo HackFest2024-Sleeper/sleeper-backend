@@ -6,6 +6,7 @@ const app = express();
 
 const authRouter = require('./app/api/auth/router');
 const foodsRouter = require('./app/api/foods/router');
+const exercisesRouter = require('./app/api/exercises/router');
 
 const errorHandlerMiddleware = require('./app/middlewares/handle-error');
 const notFoundMiddleware = require('./app/middlewares/not-found');
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 
 app.use('/api', authRouter);
 app.use('/api', foodsRouter);
+app.use('/api', exercisesRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
