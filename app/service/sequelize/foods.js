@@ -1,3 +1,5 @@
+const { NotFoundError } = require('../../errors');
+
 const Food = require('../../../models').foods;
 
 const getAllFoods = async (req) => {
@@ -13,6 +15,7 @@ const getAllFoods = async (req) => {
     limit,
     offset: (page - 1) * limit,
     where: whereClause,
+    attributes: ['id', 'name', 'category', 'description', 'image'],
   });
 
   return {
@@ -22,4 +25,19 @@ const getAllFoods = async (req) => {
   };
 };
 
-module.exports = { getAllFoods };
+const getOneFood = async (req) => {
+  const { id } = req.params;
+
+  const result = await Food.findOne({
+    where: { id },
+    attributes: ['id', 'name', 'category', 'description', 'image'],
+  });
+
+  if (!result) {
+    throw new NotFoundError(`Food with id ${id} not found`);
+  }
+
+  return result;
+};
+
+module.exports = { getAllFoods, getOneFood };
