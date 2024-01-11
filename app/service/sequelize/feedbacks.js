@@ -6,14 +6,23 @@ const Feedback = require('../../../models').feedbacks;
 const getAllFeedbacksUser = async (req) => {
   // const { uid } = req.user;
   const uid = 'xInOmaflENWmM0STEfsS7GwWoAE3';
+  const { page = 1, limit = 10 } = req.query;
+  const whereClause = {};
+
+  if (req.query.keyword) {
+    keyword = keyword.toLowerCase();
+    whereClause.name = { [Op.iLike]: `%${q}%` };
+  }
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
     throw new NotFoundError(`User with uid ${uid} was not found`);
   }
 
-  const result = await Feedback.findOne({
-    where: { UserId: user.id },
+  const result = await Feedback.findAndCountAll({
+    limit,
+    offset: (page - 1) * limit,
+    where: whereClause,
     attributes: ['id', 'foods', 'exercises', 'feedbacks', 'date'],
   });
 
@@ -22,6 +31,22 @@ const getAllFeedbacksUser = async (req) => {
     pages: Math.ceil(result.count / limit),
     total: result.count,
   };
+};
+
+const getOneFeedbackUser = async (req) => {
+  // const { uid } = req.user;
+  const uid = 'xInOmaflENWmM0STEfsS7GwWoAE3';
+
+  const user = await User.findOne({ where: { uid } });
+  if (!user) {
+    throw new NotFoundError(`User with uid ${uid} was not found`);
+  }
+
+  const result = await Feedback.findOne({
+    attributes: ['id', 'foods', 'exercises', 'feedbacks', 'date'],
+  });
+
+  return result;
 };
 
 const inputDailyFeedbacksUser = async (req) => {
@@ -35,7 +60,7 @@ const inputDailyFeedbacksUser = async (req) => {
   }
 
   const [feedback, created] = await Feedback.findOrCreate({
-    where: { UserId: user.id, date: new Date() },
+    where: { date: new Date() },
     defaults: {
       UserId: user.id,
       foods: foods,
