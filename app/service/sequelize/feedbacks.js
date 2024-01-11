@@ -1,7 +1,28 @@
 const { NotFoundError, BadRequestError } = require('../../errors');
 
 const User = require('../../../models').users;
-const History = require('../../../models').histories;
+const Feedback = require('../../../models').feedbacks;
+
+const getAllFeedbacksUser = async (req) => {
+  // const { uid } = req.user;
+  const uid = 'xInOmaflENWmM0STEfsS7GwWoAE3';
+
+  const user = await User.findOne({ where: { uid } });
+  if (!user) {
+    throw new NotFoundError(`User with uid ${uid} was not found`);
+  }
+
+  const result = await Feedback.findOne({
+    where: { UserId: user.id },
+    attributes: ['id', 'foods', 'exercises', 'feedbacks', 'date'],
+  });
+
+  return {
+    data: result.rows,
+    pages: Math.ceil(result.count / limit),
+    total: result.count,
+  };
+};
 
 const inputDailyFeedbacksUser = async (req) => {
   const { exercises, foods, feedbacks } = req.body;
@@ -13,8 +34,8 @@ const inputDailyFeedbacksUser = async (req) => {
     throw new NotFoundError(`User with uid ${uid} was not found`);
   }
 
-  const [history, created] = await History.findOrCreate({
-    where: { date: new Date() },
+  const [feedback, created] = await Feedback.findOrCreate({
+    where: { UserId: user.id, date: new Date() },
     defaults: {
       UserId: user.id,
       foods: foods,
@@ -25,11 +46,15 @@ const inputDailyFeedbacksUser = async (req) => {
 
   if (!created) {
     throw new BadRequestError(
-      `Daily feedback already filled for ${history.date}`
+      `Daily feedback already filled for ${feedback.date}`
     );
   }
 
-  return history;
+  return feedback;
 };
 
-module.exports = { inputDailyFeedbacksUser };
+module.exports = {
+  inputDailyFeedbacksUser,
+  getAllFeedbacksUser,
+  getOneFeedbackUser,
+};

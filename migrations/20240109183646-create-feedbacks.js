@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('histories', {
+    await queryInterface.createTable('feedbacks', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -22,6 +22,9 @@ module.exports = {
       exercises: {
         type: Sequelize.ARRAY(Sequelize.STRING),
       },
+      feedbacks: {
+        type: Sequelize.TEXT,
+      },
       date: {
         type: Sequelize.DATEONLY,
       },
@@ -36,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('histories');
+    await queryInterface.dropTable('feedbacks');
   },
 };
