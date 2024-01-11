@@ -8,6 +8,7 @@ const authRouter = require('./app/api/auth/router');
 const foodsRouter = require('./app/api/foods/router');
 const exercisesRouter = require('./app/api/exercises/router');
 const feedbacksRouter = require('./app/api/feedbacks/router');
+const recommendationsRouter = require('./app/api/recommendations/router');
 
 const errorHandlerMiddleware = require('./app/middlewares/handle-error');
 const notFoundMiddleware = require('./app/middlewares/not-found');
@@ -29,6 +30,7 @@ app.use('/api', authRouter);
 app.use('/api', foodsRouter);
 app.use('/api', exercisesRouter);
 app.use('/api', feedbacksRouter);
+app.use('/api', recommendationsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

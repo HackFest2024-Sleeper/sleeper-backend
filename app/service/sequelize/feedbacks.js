@@ -60,9 +60,8 @@ const inputDailyFeedbacksUser = async (req) => {
   }
 
   const [feedback, created] = await Feedback.findOrCreate({
-    where: { date: new Date() },
+    where: { date: new Date(), UserId: user.id },
     defaults: {
-      UserId: user.id,
       foods: foods,
       exercises: exercises,
       feedbacks: feedbacks,
