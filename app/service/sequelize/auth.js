@@ -9,6 +9,8 @@ const registerUser = async (req) => {
     email: email,
   });
 
+  await admin.database().ref(`/${uid}`).set('off');
+
   return user;
 };
 
