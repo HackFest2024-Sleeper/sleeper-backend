@@ -1,6 +1,6 @@
 const { NotFoundError } = require('../../errors');
 
-const Exercise = require('../../../models').exercises;
+const Exercise = require('../../../models').Exercise;
 
 const getAllExercises = async (req) => {
   const { page = 1, limit = 10 } = req.query;
@@ -23,7 +23,7 @@ const getAllExercises = async (req) => {
       'duration',
       'repetitions',
       'sets',
-      'video',
+      'image',
     ],
   });
 
@@ -47,7 +47,7 @@ const getOneExercise = async (req) => {
       'duration',
       'repetitions',
       'sets',
-      'video',
+      'image',
     ],
   });
 

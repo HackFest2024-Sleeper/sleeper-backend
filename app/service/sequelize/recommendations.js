@@ -1,12 +1,16 @@
 const { NotFoundError, BadRequestError } = require('../../errors');
 
-const User = require('../../../models').users;
-const Activity = require('../../../models').activities;
+const User = require('../../../models').User;
+const Activity = require('../../../models').Activity;
+const Exercise = require('../../../models').Exercise;
+const ExerciseRecommendation =
+  require('../../../models').ExerciseRecommendation;
+const FoodRecommendation = require('../../../models').FoodRecommendation;
 
 const inputDailyActivitiesUser = async (req) => {
   const { activities, date } = req.body;
   // const { uid } = req.user;
-  const uid = 'xInOmaflENWmM0STEfsS7GwWoAE3';
+  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
@@ -32,4 +36,61 @@ const inputDailyActivitiesUser = async (req) => {
   return 'Daily Activities inputted';
 };
 
-module.exports = { inputDailyActivitiesUser };
+const getExercisesRecommendationUser = async (req) => {
+  const { page = 1, limit = 10, date } = req.query;
+  // const { uid } = req.user;
+  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
+
+  const user = await User.findOne({ where: { uid } });
+  if (!user) {
+    throw new NotFoundError(`User with uid ${uid} was not found`);
+  }
+
+  const result = await ExerciseRecommendation.findAndCountAll({
+    limit,
+    offset: (page - 1) * limit,
+    where: { UserId: user.id, datetime: date },
+    attributes: ['id', 'UserId', 'ExerciseId', 'datetime'],
+    include: [
+      {
+        model: Exercise,
+      },
+    ],
+  });
+
+  return {
+    data: result.rows,
+    pages: Math.ceil(result.count / limit),
+    total: result.count,
+  };
+};
+
+const getFoodsRecommendationUser = async (req) => {
+  const { page = 1, limit = 10, date } = req.query;
+  // const { uid } = req.user;
+  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
+
+  const user = await User.findOne({ where: { uid } });
+  if (!user) {
+    throw new NotFoundError(`User with uid ${uid} was not found`);
+  }
+
+  const result = await FoodRecommendation.findAndCountAll({
+    limit,
+    offset: (page - 1) * limit,
+    where: { UserId: user.id, datetime: date },
+    attributes: ['id', 'UserId', 'FoodId', 'datetime'],
+  });
+
+  return {
+    data: result.rows,
+    pages: Math.ceil(result.count / limit),
+    total: result.count,
+  };
+};
+
+module.exports = {
+  inputDailyActivitiesUser,
+  getExercisesRecommendationUser,
+  getFoodsRecommendationUser,
+};

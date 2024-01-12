@@ -1,6 +1,6 @@
 const { NotFoundError } = require('../../errors');
 
-const Food = require('../../../models').foods;
+const Food = require('../../../models').Food;
 
 const getAllFoods = async (req) => {
   const { page = 1, limit = 10 } = req.query;

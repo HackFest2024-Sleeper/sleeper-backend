@@ -2,31 +2,29 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('activities', {
+    await queryInterface.createTable('FoodRecommendations', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-      },
-      type: {
-        type: Sequelize.STRING,
-      },
-      duration: {
-        type: Sequelize.INTEGER,
-      },
-      date: {
-        type: Sequelize.DATEONLY,
-      },
       UserId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
+          model: 'Users',
           key: 'id',
         },
+      },
+      FoodId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Foods',
+          key: 'id',
+        },
+      },
+      date: {
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +37,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('activities');
+    await queryInterface.dropTable('FoodRecommendations');
   },
 };

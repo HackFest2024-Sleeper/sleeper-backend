@@ -1,11 +1,11 @@
 const { NotFoundError, BadRequestError } = require('../../errors');
 
-const User = require('../../../models').users;
-const Feedback = require('../../../models').feedbacks;
+const User = require('../../../models').User;
+const Feedback = require('../../../models').Feedback;
 
 const getAllFeedbacksUser = async (req) => {
   // const { uid } = req.user;
-  const uid = 'xInOmaflENWmM0STEfsS7GwWoAE3';
+  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
   const { page = 1, limit = 10 } = req.query;
   const whereClause = {};
 
@@ -35,7 +35,7 @@ const getAllFeedbacksUser = async (req) => {
 
 const getOneFeedbackUser = async (req) => {
   // const { uid } = req.user;
-  const uid = 'xInOmaflENWmM0STEfsS7GwWoAE3';
+  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
@@ -52,7 +52,7 @@ const getOneFeedbackUser = async (req) => {
 const inputDailyFeedbacksUser = async (req) => {
   const { exercises, foods, feedbacks } = req.body;
   // const { uid } = req.user;
-  const uid = 'xInOmaflENWmM0STEfsS7GwWoAE3';
+  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
