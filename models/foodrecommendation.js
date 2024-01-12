@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association
       FoodRecommendation.belongsTo(models.User);
+      FoodRecommendation.belongsTo(models.Food);
     }
   }
   FoodRecommendation.init(

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ExerciseRecommendation.hasOne(models.Exercise);
+      ExerciseRecommendation.belongsTo(models.Exercise);
     }
   }
   ExerciseRecommendation.init(

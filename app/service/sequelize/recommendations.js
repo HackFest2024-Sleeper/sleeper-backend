@@ -3,6 +3,7 @@ const { NotFoundError, BadRequestError } = require('../../errors');
 const User = require('../../../models').User;
 const Activity = require('../../../models').Activity;
 const Exercise = require('../../../models').Exercise;
+const Food = require('../../../models').Food;
 const ExerciseRecommendation =
   require('../../../models').ExerciseRecommendation;
 const FoodRecommendation = require('../../../models').FoodRecommendation;
@@ -50,10 +51,20 @@ const getExercisesRecommendationUser = async (req) => {
     limit,
     offset: (page - 1) * limit,
     where: { UserId: user.id, date: date },
-    attributes: ['id', 'UserId', 'ExerciseId', 'date'],
+    attributes: ['id', 'UserId', 'date'],
     include: [
       {
         model: Exercise,
+        attributes: [
+          'id',
+          'name',
+          'category',
+          'description',
+          'duration',
+          'repetitions',
+          'sets',
+          'image',
+        ],
       },
     ],
   });
@@ -79,7 +90,11 @@ const getFoodsRecommendationUser = async (req) => {
     limit,
     offset: (page - 1) * limit,
     where: { UserId: user.id, date: date },
-    attributes: ['id', 'UserId', 'FoodId', 'date'],
+    attributes: ['id', 'UserId', 'date'],
+    include: {
+      model: Food,
+      attributes: ['id', 'name', 'category', 'description', 'image'],
+    },
   });
 
   return {
