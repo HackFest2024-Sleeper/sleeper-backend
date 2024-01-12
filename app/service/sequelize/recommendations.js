@@ -49,8 +49,8 @@ const getExercisesRecommendationUser = async (req) => {
   const result = await ExerciseRecommendation.findAndCountAll({
     limit,
     offset: (page - 1) * limit,
-    where: { UserId: user.id, datetime: date },
-    attributes: ['id', 'UserId', 'ExerciseId', 'datetime'],
+    where: { UserId: user.id, date: date },
+    attributes: ['id', 'UserId', 'ExerciseId', 'date'],
     include: [
       {
         model: Exercise,
@@ -78,8 +78,8 @@ const getFoodsRecommendationUser = async (req) => {
   const result = await FoodRecommendation.findAndCountAll({
     limit,
     offset: (page - 1) * limit,
-    where: { UserId: user.id, datetime: date },
-    attributes: ['id', 'UserId', 'FoodId', 'datetime'],
+    where: { UserId: user.id, date: date },
+    attributes: ['id', 'UserId', 'FoodId', 'date'],
   });
 
   return {
