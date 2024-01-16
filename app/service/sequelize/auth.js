@@ -7,7 +7,7 @@ const registerUser = async (req) => {
 
   const [user, created] = await User.findOrCreate({
     where: { uid: uid, email: email },
-    default: {
+    defaults: {
       name: fullName,
     },
   });
@@ -16,7 +16,7 @@ const registerUser = async (req) => {
     throw new BadRequestError('User already registered');
   }
 
-  await admin.database().ref(`/${uid}`).set('off');
+  await admin.database().ref(`/${uid}/status`).set('off');
 
   return user;
 };
