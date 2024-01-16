@@ -9,13 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      foods: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-      },
-      exercises: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-      },
-      feedbacks: {
+      feedback: {
         type: Sequelize.TEXT,
       },
       date: {

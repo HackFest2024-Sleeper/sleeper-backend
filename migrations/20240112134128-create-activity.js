@@ -12,14 +12,17 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      type: {
-        type: Sequelize.STRING,
+      priority: {
+        type: Sequelize.INTEGER,
       },
       duration: {
         type: Sequelize.INTEGER,
       },
       date: {
         type: Sequelize.DATE,
+      },
+      time: {
+        type: Sequelize.STRING,
       },
       UserId: {
         type: Sequelize.INTEGER,
