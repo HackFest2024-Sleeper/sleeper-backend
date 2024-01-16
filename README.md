@@ -39,5 +39,6 @@ npm run dev
 
 You can use our deployed API below!
 ```bash
-npm run dev](https://sleeper-api-n4waezcoha-et.a.run.app
+https://sleeper-api-n4waezcoha-et.a.run.app
 ```
+API Documentation is in progress!
