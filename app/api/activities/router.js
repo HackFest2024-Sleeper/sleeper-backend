@@ -7,8 +7,8 @@ const {
 const { authenticateUser } = require('../../middlewares/auth');
 const router = express();
 
-router.post('/daily', authenticateUser, inputDailyActivities);
-router.get('/daily', authenticateUser, getAllDailyActivities);
-router.get('/daily/:id', authenticateUser, getOneDailyActivities);
+router.post('/activities/daily', authenticateUser, inputDailyActivities);
+router.get('/activities/daily', authenticateUser, getAllDailyActivities);
+router.get('/activities/daily/:id', authenticateUser, getOneDailyActivities);
 
 module.exports = router;

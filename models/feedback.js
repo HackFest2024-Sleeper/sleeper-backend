@@ -10,12 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Feedback.belongsTo(models.User);
+      Feedback.belongsToMany(models.Activity, {
+        through: models.FeedbackActivity,
+      });
     }
   }
   Feedback.init(
     {
       feedback: DataTypes.TEXT,
-      date: DataTypes.DATE,
+      date: DataTypes.DATEONLY,
       UserId: DataTypes.INTEGER,
     },
     {

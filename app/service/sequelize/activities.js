@@ -1,4 +1,4 @@
-const { NotFoundError, BadRequestError } = require('../../errors');
+const { NotFoundError } = require('../../errors');
 
 const User = require('../../../models').User;
 const Activity = require('../../../models').Activity;
@@ -36,11 +36,8 @@ const getAllDailyActivitiesUser = async (req) => {
   }
 
   const whereClause = { UserId: user.id };
-
   if (req.query.date) {
-    whereClause = {
-      date: date,
-    };
+    whereClause.date = req.query.date;
   }
 
   const result = await Activity.findAndCountAll({
@@ -62,6 +59,7 @@ const getAllDailyActivitiesUser = async (req) => {
 };
 
 const getOneDailyActivitiesUser = async (req) => {
+  const { id } = req.params;
   // const { uid } = req.user;
   const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
 
@@ -71,10 +69,16 @@ const getOneDailyActivitiesUser = async (req) => {
   }
 
   const result = await Activity.findOne({
-    where: { UserId: user.id },
+    where: { UserId: user.id, id: id },
     attributes: ['id', 'name', 'duration', 'priority', 'date', 'time'],
     order: [['time', 'DESC']],
   });
+
+  if (!result) {
+    throw new NotFoundError(`Activity with id ${id} was not found`);
+  }
+
+  return result;
 };
 
 module.exports = {

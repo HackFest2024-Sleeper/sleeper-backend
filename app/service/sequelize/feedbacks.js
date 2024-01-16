@@ -27,10 +27,10 @@ const getAllFeedbacksUser = async (req) => {
     limit,
     offset: (page - 1) * limit,
     where: whereClause,
-    attributes: ['id', 'feedbacks', 'date'],
+    attributes: ['id', 'feedback', 'date'],
     include: {
       model: Activity,
-      attributes: ['id'],
+      attributes: ['id', 'name', 'priority', 'duration', 'time'],
     },
   });
 
@@ -55,7 +55,7 @@ const getOneFeedbackUser = async (req) => {
     attributes: ['id', 'feedbacks', 'date'],
     include: {
       model: Activity,
-      attributes: ['id'],
+      attributes: ['id', 'name', 'priority', 'duration', 'time'],
     },
   });
 

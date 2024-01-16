@@ -7,11 +7,6 @@ const {
 const { authenticateUser } = require('../../middlewares/auth');
 const router = express();
 
-router.post(
-  '/recommendations/daily-activities',
-  authenticateUser,
-  inputDailyActivities
-);
 router.get(
   '/recommendations/exercises',
   authenticateUser,

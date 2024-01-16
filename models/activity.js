@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Activity.belongsTo(models.User);
+      Activity.belongsToMany(models.Feedback, {
+        through: models.FeedbackActivity,
+      });
     }
   }
   Activity.init(
