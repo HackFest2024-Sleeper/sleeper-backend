@@ -9,6 +9,7 @@ const foodsRouter = require('./app/api/foods/router');
 const exercisesRouter = require('./app/api/exercises/router');
 const feedbacksRouter = require('./app/api/feedbacks/router');
 const recommendationsRouter = require('./app/api/recommendations/router');
+const activitiesRouter = require('./app/api/activities/router');
 const devicesRouter = require('./app/api/devices/router');
 
 const errorHandlerMiddleware = require('./app/middlewares/handle-error');
@@ -32,6 +33,7 @@ app.use('/api', foodsRouter);
 app.use('/api', exercisesRouter);
 app.use('/api', feedbacksRouter);
 app.use('/api', recommendationsRouter);
+app.use('/api', activitiesRouter);
 app.use('/api', devicesRouter);
 
 app.use(notFoundMiddleware);
