@@ -72,7 +72,6 @@ const getFoodsRecommendationUser = async (req) => {
 };
 
 module.exports = {
-  inputDailyActivitiesUser,
   getExercisesRecommendationUser,
   getFoodsRecommendationUser,
 };
