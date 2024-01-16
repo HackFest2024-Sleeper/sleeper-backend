@@ -4,10 +4,11 @@ const {
   getAllFeedbacks,
   getOneFeedback,
 } = require('./controller');
+const { authenticateUser } = require('../../middlewares/auth');
 const router = express();
 
-router.get('/feedbacks', getAllFeedbacks);
-router.get('/feedbacks/:id', getOneFeedback);
-router.post('/feedbacks/daily', inputDailyFeedbacks);
+router.get('/feedbacks', authenticateUser, getAllFeedbacks);
+router.get('/feedbacks/:id', authenticateUser, getOneFeedback);
+router.post('/feedbacks/daily', authenticateUser, inputDailyFeedbacks);
 
 module.exports = router;

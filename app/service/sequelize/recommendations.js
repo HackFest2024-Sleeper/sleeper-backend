@@ -10,8 +10,7 @@ const FoodRecommendation = require('../../../models').FoodRecommendation;
 
 const inputDailyActivitiesUser = async (req) => {
   const { activities, date } = req.body;
-  // const { uid } = req.user;
-  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
+  const { uid } = req.user;
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
@@ -39,8 +38,7 @@ const inputDailyActivitiesUser = async (req) => {
 
 const getExercisesRecommendationUser = async (req) => {
   const { page = 1, limit = 10, date } = req.query;
-  // const { uid } = req.user;
-  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
+  const { uid } = req.user;
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
@@ -78,8 +76,7 @@ const getExercisesRecommendationUser = async (req) => {
 
 const getFoodsRecommendationUser = async (req) => {
   const { page = 1, limit = 10, date } = req.query;
-  // const { uid } = req.user;
-  const uid = 'S5Kkhk64eEY4zgWRoKiB2uZsMw72';
+  const { uid } = req.user;
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
