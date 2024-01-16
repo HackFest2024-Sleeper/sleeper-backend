@@ -14,9 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Feedback.init(
     {
-      foods: DataTypes.ARRAY(DataTypes.STRING),
-      exercises: DataTypes.ARRAY(DataTypes.STRING),
-      feedbacks: DataTypes.TEXT,
+      feedback: DataTypes.TEXT,
       date: DataTypes.DATE,
       UserId: DataTypes.INTEGER,
     },

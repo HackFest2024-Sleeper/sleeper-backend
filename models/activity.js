@@ -15,9 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   Activity.init(
     {
       name: DataTypes.STRING,
-      type: DataTypes.STRING,
+      priority: DataTypes.INTEGER,
       duration: DataTypes.INTEGER,
       date: DataTypes.DATEONLY,
+      time: DataTypes.STRING,
       UserId: DataTypes.INTEGER,
     },
     {
