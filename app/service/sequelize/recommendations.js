@@ -18,7 +18,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const createActivitiesRecommendationUser = async (req) => {
-  const { uid } = req.user;
+  const { uid } = req.body;
   const { date } = req.body;
 
   const user = await User.findOne({ where: { uid } });
@@ -72,7 +72,7 @@ const createActivitiesRecommendationUser = async (req) => {
       text:
         'rencana aktivitas:' +
         input +
-        '\nAturan:\n1. waktu aktivitas terakhir tidak boleh lebih dari jam 20.00.\n2. rencana aktivitas harus diutamakan.\n3. tambahkan aktivitas olahraga jika tidak ada aktivitas olahraga\n4. tambahkan aktivitas sarapan, makan siang, makan malam jika tidak ada.\n5. tambahkan aktivitas istirahat jika tidak ada aktivitas istirahat.\n6. dibuat dalam bentuk list dengan format [jam, aktivitas].\n',
+        '\nAturan:\n1. waktu aktivitas terakhir tidak boleh lebih dari jam 20.00.\n2. rencana aktivitas harus diutamakan dan tidak boleh duplikat.\n3. tambahkan aktivitas olahraga jika tidak ada aktivitas olahraga\n4. tambahkan aktivitas sarapan, makan siang, makan malam jika tidak ada.\n5. tambahkan aktivitas istirahat jika tidak ada aktivitas istirahat.\n6. dibuat dalam bentuk list dengan format [jam, aktivitas].\n',
     },
   ];
 
@@ -100,7 +100,7 @@ const createActivitiesRecommendationUser = async (req) => {
 
 const getActivitiesRecommendationUser = async (req) => {
   const { date } = req.query;
-  const { uid } = req.user;
+  const { uid } = req.params;
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
@@ -117,7 +117,7 @@ const getActivitiesRecommendationUser = async (req) => {
 
 const getExercisesRecommendationUser = async (req) => {
   const { page = 1, limit = 10, date } = req.query;
-  const { uid } = req.user;
+  const { uid } = req.params;
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
@@ -155,7 +155,7 @@ const getExercisesRecommendationUser = async (req) => {
 
 const getFoodsRecommendationUser = async (req) => {
   const { page = 1, limit = 10, date } = req.query;
-  const { uid } = req.user;
+  const { uid } = req.params;
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {

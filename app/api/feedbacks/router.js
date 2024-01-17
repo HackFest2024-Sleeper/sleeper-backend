@@ -7,8 +7,8 @@ const {
 const { authenticateUser } = require('../../middlewares/auth');
 const router = express();
 
-router.get('/feedbacks', authenticateUser, getAllFeedbacks);
-router.get('/feedbacks/:id', authenticateUser, getOneFeedback);
-router.post('/feedbacks/daily', authenticateUser, inputDailyFeedbacks);
+router.get('/:uid/feedbacks', getAllFeedbacks);
+router.get('/:uid/feedbacks/:id', getOneFeedback);
+router.post('/feedbacks/daily', inputDailyFeedbacks);
 
 module.exports = router;

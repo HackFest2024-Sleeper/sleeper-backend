@@ -10,19 +10,19 @@ const router = express();
 
 router.post(
   '/recommendations/activities',
-  authenticateUser,
+
   createActivitiesRecommendation
 );
 router.get(
-  '/recommendations/activities',
-  authenticateUser,
+  '/:uid/recommendations/activities',
+
   getActivitiesRecommendation
 );
 router.get(
-  '/recommendations/exercises',
-  authenticateUser,
+  '/:uid/recommendations/exercises',
+
   getExercisesRecommendation
 );
-router.get('/recommendations/foods', authenticateUser, getFoodsRecommendation);
+router.get('/:uid/recommendations/foods', getFoodsRecommendation);
 
 module.exports = router;

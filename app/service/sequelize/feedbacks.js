@@ -6,7 +6,7 @@ const Activity = require('../../../models').Activity;
 const FeedbackActivity = require('../../../models').FeedbackActivity;
 
 const getAllFeedbacksUser = async (req) => {
-  const { uid } = req.user;
+  const { uid } = req.params;
   const { page = 1, limit = 10 } = req.query;
   const whereClause = {};
 
@@ -41,7 +41,7 @@ const getAllFeedbacksUser = async (req) => {
 };
 
 const getOneFeedbackUser = async (req) => {
-  const { uid } = req.user;
+  const { uid } = req.params;
 
   const user = await User.findOne({ where: { uid } });
   if (!user) {
@@ -62,7 +62,7 @@ const getOneFeedbackUser = async (req) => {
 
 const inputDailyFeedbacksUser = async (req) => {
   const { activityIds, feedbacks, date } = req.body;
-  const { uid } = req.user;
+  const { uid } = req.body;
   let activities = null;
 
   const user = await User.findOne({ where: { uid } });

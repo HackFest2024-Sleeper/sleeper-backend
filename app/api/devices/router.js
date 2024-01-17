@@ -3,6 +3,6 @@ const { updateSmartLamp } = require('./controller');
 const { authenticateUser } = require('../../middlewares/auth');
 const router = express();
 
-router.put('/smart-lamp', authenticateUser, updateSmartLamp);
+router.put('/smart-lamp', updateSmartLamp);
 
 module.exports = router;
