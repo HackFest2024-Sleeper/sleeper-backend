@@ -1,4 +1,5 @@
-const { UnauthorizedError } = require("../errors");
+const { UnauthorizedError } = require('../errors');
+const admin = require('../../config/firebase-config');
 
 const authenticateUser = async (req, res, next) => {
   try {
