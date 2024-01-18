@@ -19,9 +19,9 @@ cd sleeper-backend
 npm install
 ```
 
-### 3. Create .env file based on .env.example
+### 3. Create your local PostgreSQL database and add the information to .env file based on .env.example
 
-### 4. Database Migration
+### 4. Migrate the table to the created database
 
 ```bash
 sequelize db:migrate
@@ -33,7 +33,7 @@ sequelize db:migrate
 npm run dev
 ```
 
-### Server will run on port 9000
+### Server will run on your designated port / 9000
 
 ## Only want to test our API? 
 
